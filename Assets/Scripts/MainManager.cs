@@ -11,6 +11,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text BestScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -36,6 +37,13 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        // Disable the best score text.
+        BestScoreText.enabled = false;
+        // Set the current score to 0.
+        SaveDataHandler.Instance.CurrentPlayerScore = 0;
+        // Communicate the current best score.
+        CommunicateScore();
     }
 
     private void Update()
@@ -59,18 +67,35 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
     void AddPoint(int point)
     {
-        m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        // Delete to adding the score to the save data score handler.
+        SaveDataHandler.Instance.AddToScore(point);
+        CommunicateScore();
+    }
+
+    void CommunicateScore()
+    {
+        ScoreText.text = $"Score for {SaveDataHandler.Instance.CurrentPlayerName}: {SaveDataHandler.Instance.CurrentPlayerScore}";
+        if (SaveDataHandler.Instance.BestPlayerScore > 0)
+        {
+            BestScoreText.enabled = true;
+            BestScoreText.text = $"Top score for {SaveDataHandler.Instance.BestPlayerName}: {SaveDataHandler.Instance.BestPlayerScore}";
+        }
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        // Save the game data.
+        SaveDataHandler.Instance.SavePlayerData();
     }
 }
