@@ -15,19 +15,20 @@ public class Brick : MonoBehaviour
         var renderer = GetComponentInChildren<Renderer>();
 
         MaterialPropertyBlock block = new MaterialPropertyBlock();
+        // Set some nice colors from blue to reddish purple.
         switch (PointValue)
         {
             case 1 :
-                block.SetColor("_BaseColor", Color.green);
+                block.SetColor("_BaseColor", new Color(0, 0, 1, 1));
                 break;
             case 2:
-                block.SetColor("_BaseColor", Color.yellow);
+                block.SetColor("_BaseColor", new Color(0.3f, 0, 0.9f, 1));
                 break;
             case 5:
-                block.SetColor("_BaseColor", Color.blue);
+                block.SetColor("_BaseColor", new Color(0.7f, 0, 0.3f, 1));
                 break;
             default:
-                block.SetColor("_BaseColor", Color.red);
+                block.SetColor("_BaseColor", new Color(1, 0, 0.1f, 1));
                 break;
         }
         renderer.SetPropertyBlock(block);
