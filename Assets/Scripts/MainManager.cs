@@ -85,11 +85,11 @@ public class MainManager : MonoBehaviour
 
     void CommunicateScore()
     {
-        ScoreText.text = $"Score for {SaveDataHandler.Instance.CurrentPlayerName}: {SaveDataHandler.Instance.CurrentPlayerScore}";
+        ScoreText.text = $"{SaveDataHandler.Instance.CurrentPlayerName}: {SaveDataHandler.Instance.CurrentPlayerScore}";
         if (SaveDataHandler.Instance.BestPlayerScore > 0)
         {
             BestScoreText.enabled = true;
-            BestScoreText.text = $"Top score for {SaveDataHandler.Instance.BestPlayerName}: {SaveDataHandler.Instance.BestPlayerScore}";
+            BestScoreText.text = $"{SaveDataHandler.Instance.BestPlayerName}: {SaveDataHandler.Instance.BestPlayerScore}";
         }
     }
 
