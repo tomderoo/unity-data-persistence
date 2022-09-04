@@ -41,6 +41,7 @@ public class MenuHandler : MonoBehaviour
         else
         {
             PlayerNameInputField.Select();
+            PlayerNameInputField.image.color = new Color(1f, 0.7f, 0.8f, 1);
         }
     }
 
