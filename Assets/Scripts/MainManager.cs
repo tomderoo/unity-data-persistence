@@ -38,11 +38,12 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        // Disable the best score text.
+        // Disable the best score text as a starting position. CommunicateScore will enable
+        // it if need be, based on current score landscape.
         BestScoreText.enabled = false;
         // Set the current score to 0.
         SaveDataHandler.Instance.CurrentPlayerScore = 0;
-        // Communicate the current best score.
+        // Communicate the current score.
         CommunicateScore();
     }
 
@@ -76,7 +77,8 @@ public class MainManager : MonoBehaviour
 
     void AddPoint(int point)
     {
-        // Delete to adding the score to the save data score handler.
+        // Delegate adding the score to the save data score handler.
+        // For efficiency purposes, we also use the save data handler as the scorekeeper.
         SaveDataHandler.Instance.AddToScore(point);
         CommunicateScore();
     }
